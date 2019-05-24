@@ -4,7 +4,7 @@
     <div class="coffeeType" v-for="(item,index) in coffees">
       <div class="num">0{{index}}</div>
       <div class="cupContainer">
-        <div class="cup">
+        <div class="cup" :class="[item.type]">
           <div class="ingradient">
             <div class="coffee" :style="{height:item.coffee + '%'}"></div>
             <div class="milk" :style="{height:item.milk + '%'}"></div>
@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="control">
-        <h2>Expresso</h2>
+        <h2>{{item.name}}</h2>
       </div>
     </div>
   </div>
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       editing: true,
-      cupTypes: ["small", "medium", "big", "mock"],
+      cupTypes: ["small", "medium", "large", "mock"],
       coffees: [
         {
           name: "Expresso",
@@ -40,7 +40,8 @@ export default {
           coffee: 40,
           bubble: 0,
           water: 40,
-          milk: 0
+          milk: 0,
+          type: "medium"
         },
         {
           name: "Cappuccino",
@@ -48,14 +49,15 @@ export default {
           bubble: 0,
           water: 0,
           milk: 50,
-          type: "big"
+          type: "large"
         },
         {
           name: "Latte",
           coffee: 30,
           bubble: 30,
           water: 0,
-          milk: 30
+          milk: 30,
+          type: "mock"
         }
       ],
       favoriteType: "Cappuccino"
@@ -99,6 +101,20 @@ export default {
         padding-top: 5px;
         position: relative;
 
+        &.small{
+          @include size(50px,40px);
+        }
+        &.large{
+          @include size(80px,50px);
+        }
+        &.mock{
+          @include size(60px,90px);
+          border-radius: 0;
+          .ingradient{
+             border-radius: 0;
+          }
+        }
+
         &:before {
           content: '';
           display: block;
@@ -112,7 +128,7 @@ export default {
           transform:translateY(-50%);
         }
         .ingradient {
-          @include size(70px, 50px);
+          @include size(100%);
           border-radius: 0 0 50px 50px;
           overflow: hidden;
           display: flex;
