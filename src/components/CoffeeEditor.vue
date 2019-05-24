@@ -1,16 +1,15 @@
 <template>
   <div class="CoffeeEditor">
     <h3>coffee editor test 123</h3>
-    <div class="coffeeType">
-      <div class="num">00</div>
+    <div class="coffeeType" v-for="(item,index) in coffees">
+      <div class="num">0{{index}}</div>
       <div class="cupContainer">
         <div class="cup">
-          Cup
           <div class="ingradient">
-            <div class="coffee"></div>
-            <div class="milk"></div>
-            <div class="water"></div>
-            <div class="bubble"></div>
+            <div class="coffee" :style="{height:item.coffee + '%'}"></div>
+            <div class="milk" :style="{height:item.milk + '%'}"></div>
+            <div class="water" :style="{height:item.water + '%'}"></div>
+            <div class="bubble" :style="{height:item.bubble + '%'}"></div>
           </div>
         </div>
       </div>
@@ -33,6 +32,7 @@ export default {
           coffee: 80,
           bubble: 0,
           water: 0,
+          milk:0,
           type: "small"
         },
         {
@@ -65,6 +65,84 @@ export default {
 </script>
 
 <style lang="scss">
+@mixin size($w, $h: $w) {
+  width: $w;
+  height: $h;
+}
 .CoffeeEditor {
+  .coffeeType {
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+    border-radius: 5px;
+    padding: 10 20px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(white, 0.1);
+    transition: 0.5s;
+    &:hover {
+      background-color: rgba(white, 0.05);
+    }
+    .num {
+      font-size: 60px;
+      flex: 1;
+      font-weight: bold;
+      margin-right: 30px;
+    }
+    .cupContainer {
+      flex: 1;
+      .cup {
+        border: 4px solid white;
+        @include size(70px, 50px);
+        border-top: none;
+        border-radius: 0 0 50px 50px;
+        margin: 10px;
+        padding-top: 5px;
+        position: relative;
+
+        &:before {
+          content: '';
+          display: block;
+          border: 4px solid white;
+          border-left:none;
+          border-radius:0 50px 50px 0;
+          @include size(15px, 20px);
+          position: absolute;
+          left:100%;
+          top:40%; 
+          transform:translateY(-50%);
+        }
+        .ingradient {
+          @include size(70px, 50px);
+          border-radius: 0 0 50px 50px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column-reverse;
+
+          .coffee,
+          .milk,
+          .water,
+          .bubble {
+            background-color: white;
+            height: 10px;
+          }
+          .coffee {
+            background-color: #66491a;
+          }
+          .milk {
+            background-color: #f7d8bb;
+          }
+          .water {
+            background-color: #589bce;
+          }
+          .bubble {
+            background-color: #eee;
+          }
+        }
+      }
+    }
+    .control {
+      flex: 2;
+    }
+  }
 }
 </style>
