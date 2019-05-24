@@ -1,7 +1,11 @@
 <template>
   <div class="CoffeeEditor">
     <h3>coffee editor test 123</h3>
-    <div class="coffeeType" v-for="(item,index) in coffees">
+    <div
+      class="coffeeType"
+      v-for="(item,index) in coffees"
+      :class="{favorite: item.name == favoriteType}"
+    >
       <div class="num">0{{index}}</div>
       <div class="cupContainer">
         <div class="cup" :class="[item.type]">
@@ -32,7 +36,7 @@ export default {
           coffee: 80,
           bubble: 0,
           water: 0,
-          milk:0,
+          milk: 0,
           type: "small"
         },
         {
@@ -81,8 +85,22 @@ export default {
     cursor: pointer;
     border-bottom: 1px solid rgba(white, 0.1);
     transition: 0.5s;
+
     &:hover {
       background-color: rgba(white, 0.05);
+    }
+
+    &.favorite {
+      &:before {
+        content: "BEST";
+        border:5px solid;
+        color:#ff5e5e;
+        font-size:30px;
+        line-height: 0.9 ;
+        padding:5px 3px;
+        position: absolute;
+        transform: translateX(-70px) rotate(-20deg);
+      }
     }
     .num {
       font-size: 60px;
@@ -101,31 +119,31 @@ export default {
         padding-top: 5px;
         position: relative;
 
-        &.small{
-          @include size(50px,40px);
+        &.small {
+          @include size(50px, 40px);
         }
-        &.large{
-          @include size(80px,50px);
+        &.large {
+          @include size(80px, 50px);
         }
-        &.mock{
-          @include size(60px,90px);
+        &.mock {
+          @include size(60px, 90px);
           border-radius: 0;
-          .ingradient{
-             border-radius: 0;
+          .ingradient {
+            border-radius: 0;
           }
         }
 
         &:before {
-          content: '';
+          content: "";
           display: block;
           border: 4px solid white;
-          border-left:none;
-          border-radius:0 50px 50px 0;
+          border-left: none;
+          border-radius: 0 50px 50px 0;
           @include size(15px, 20px);
           position: absolute;
-          left:100%;
-          top:40%; 
-          transform:translateY(-50%);
+          left: 100%;
+          top: 40%;
+          transform: translateY(-50%);
         }
         .ingradient {
           @include size(100%);
