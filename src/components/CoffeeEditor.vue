@@ -19,6 +19,9 @@
       </div>
       <div class="control">
         <h2>{{item.name}}</h2>
+        <select v-model="item.type">
+          <option v-for="cupType in cupTypes" :value="cupType ">{{cupType}}</option>
+        </select> 
       </div>
     </div>
   </div>
@@ -116,6 +119,7 @@ export default {
         border-top: none;
         border-radius: 0 0 50px 50px;
         margin: 10px;
+        margin-right:50px;
         padding-top: 5px;
         position: relative;
 
