@@ -1,6 +1,6 @@
 <template>
   <div class="coffeeEditor">
-    <div class="controller">
+    <div class="topControll">
       <div>
         <label class="edit">
           Custom Your Coffee
@@ -99,7 +99,7 @@ export default {
 .coffeeEditor {
   max-width: 500px;
 
-  .controller {
+  .topControll {
     padding: 40px 0;
     display: flex;
 
@@ -125,6 +125,11 @@ export default {
       padding: 12px 20px;
       margin: 8px 20px;
       display: block;
+      transition: 0.5s;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(white, 0.1);
+      }
 
       input {
         display: none;
@@ -160,7 +165,7 @@ export default {
         border: 5px solid;
         color: #ff5e5e;
         font-size: 30px;
-        line-height: 0.9;
+        line-height: 1.2;
         padding: 5px 3px;
         position: absolute;
         transform: translateX(-70px) rotate(-20deg);
@@ -249,9 +254,9 @@ export default {
       }
       .controllBar {
         margin: 4px 0;
-        width:100%;
+        width: 100%;
         input {
-          width:100%;
+          width: 100%;
         }
       }
     }

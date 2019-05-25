@@ -30,20 +30,22 @@ body {
 }
 .title {
   width: 80%;
-  margin:0 auto;
-  padding-bottom:10px;
-  border-bottom: 1px solid rgba(white, 0.2);
+  margin: 0 auto;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(#35d6ce, 0.2);
   text-align: center;
-  color: #53c6c1;
+  color: #35d6ce;
 
   h2 {
     font-size: 40px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 0.5;
+    letter-spacing: 1.2px;
   }
-  p{
-    opacity:0.8;
+  p {
+    opacity: 0.8;
     line-height: 0.5;
+    letter-spacing: 0.7px;
   }
 }
 .coffeeApp {
