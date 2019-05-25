@@ -21,7 +21,11 @@
         <h2>{{item.name}}</h2>
         <select v-model="item.type">
           <option v-for="cupType in cupTypes" :value="cupType ">{{cupType}}</option>
-        </select> 
+        </select>
+        <div v-for="type in ['coffee','milk','water','bubble']">
+          <label>{{type}}</label>
+          <input type="range" v-model="item[type]" min="0" max="100">
+        </div>
       </div>
     </div>
   </div>
@@ -96,11 +100,11 @@ export default {
     &.favorite {
       &:before {
         content: "BEST";
-        border:5px solid;
-        color:#ff5e5e;
-        font-size:30px;
-        line-height: 0.9 ;
-        padding:5px 3px;
+        border: 5px solid;
+        color: #ff5e5e;
+        font-size: 30px;
+        line-height: 0.9;
+        padding: 5px 3px;
         position: absolute;
         transform: translateX(-70px) rotate(-20deg);
       }
@@ -119,7 +123,7 @@ export default {
         border-top: none;
         border-radius: 0 0 50px 50px;
         margin: 10px;
-        margin-right:50px;
+        margin-right: 50px;
         padding-top: 5px;
         position: relative;
 
