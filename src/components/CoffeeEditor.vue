@@ -1,10 +1,23 @@
 <template>
-  <div class="CoffeeEditor">
-    <h3>coffee editor test 123</h3>
+  <div class="coffeeEditor">
+    <div class="controller">
+      <div>
+        <label class="edit">
+          Custom Your Coffee
+          <input type="checkbox" v-model="editing">
+        </label>
+      </div>
+      <div class="chooseFavorite">
+        <label>Choose Your Favorite:</label>
+        <select v-model="favoriteType">
+          <option v-for="item in coffees" :value="item.name">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
     <div
       class="coffeeType"
       v-for="(item,index) in coffees"
-      :class="{favorite: item.name == favoriteType}"
+      :class="{favorite: item.name == favoriteType, showMode:!editing}"
     >
       <div class="num">0{{index}}</div>
       <div class="cupContainer">
@@ -22,7 +35,7 @@
         <select v-model="item.type">
           <option v-for="cupType in cupTypes" :value="cupType ">{{cupType}}</option>
         </select>
-        <div v-for="type in ['coffee','milk','water','bubble']">
+        <div class="controllBar" v-for="type in ['coffee','milk','water','bubble']">
           <label>{{type}}</label>
           <input type="range" v-model="item[type]" min="0" max="100">
         </div>
@@ -35,8 +48,9 @@
 export default {
   data() {
     return {
-      editing: true,
+      editing: false,
       cupTypes: ["small", "medium", "large", "mock"],
+      coffeeName: ["Expresso", "Americano", "Cappuccino", "Latte"],
       coffees: [
         {
           name: "Expresso",
@@ -77,24 +91,67 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @mixin size($w, $h: $w) {
   width: $w;
   height: $h;
 }
-.CoffeeEditor {
+.coffeeEditor {
+  max-width: 500px;
+
+  .controller {
+    padding: 40px 0;
+    display: flex;
+
+    .chooseFavorite {
+      margin: 0 20px;
+
+      label {
+        display: block;
+        font-size: 14px;
+        color: rgba(white, 0.5);
+        margin-bottom: 5px;
+      }
+      select {
+        width: 200px;
+        height: 35px;
+        font-size: 14px;
+      }
+    }
+    .edit {
+      color: #b2fffd;
+      border: 2px solid #b2fffd;
+      border-radius: 5px;
+      padding: 12px 20px;
+      margin: 8px 20px;
+      display: block;
+
+      input {
+        display: none;
+      }
+    }
+  }
+
   .coffeeType {
     display: flex;
     align-items: center;
-    max-width: 400px;
+    max-width: 500px;
     border-radius: 5px;
-    padding: 10 20px;
+    padding: 10px 20px;
     cursor: pointer;
     border-bottom: 1px solid rgba(white, 0.1);
     transition: 0.5s;
 
     &:hover {
       background-color: rgba(white, 0.05);
+    }
+
+    &.showMode {
+      label,
+      input,
+      select {
+        display: none;
+      }
     }
 
     &.favorite {
@@ -183,7 +240,20 @@ export default {
       }
     }
     .control {
-      flex: 2;
+      flex: 2.5;
+      select {
+        width: 100px;
+        height: 25px;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      .controllBar {
+        margin: 4px 0;
+        width:100%;
+        input {
+          width:100%;
+        }
+      }
     }
   }
 }
