@@ -4,19 +4,20 @@
       <div>
         <label class="edit">
           Custom Your Coffee
-          <input type="checkbox" v-model="editing">
+          <input type="checkbox" v-model="editing" />
         </label>
       </div>
       <div class="chooseFavorite">
         <label>Choose Your Favorite:</label>
         <select v-model="favoriteType">
-          <option v-for="item in coffees" :value="item.name">{{item.name}}</option>
+          <option v-for="(item, index) in coffees" :key="index" :value="item.name">{{item.name}}</option>
         </select>
       </div>
     </div>
     <div
       class="coffeeType"
       v-for="(item,index) in coffees"
+      :key="index"
       :class="{favorite: item.name == favoriteType, showMode:!editing}"
     >
       <div class="num">0{{index}}</div>
@@ -33,11 +34,11 @@
       <div class="control">
         <h2>{{item.name}}</h2>
         <select v-model="item.type">
-          <option v-for="cupType in cupTypes" :value="cupType ">{{cupType}}</option>
+          <option v-for="(cupType, index) in cupTypes" :key="index" :value="cupType ">{{cupType}}</option>
         </select>
-        <div class="controllBar" v-for="type in ['coffee','milk','water','bubble']">
+        <div class="controllBar" v-for="(type, index) in ingredients" :key="index">
           <label>{{type}}</label>
-          <input type="range" v-model="item[type]" min="0" max="100">
+          <input type="range" v-model="item[type]" min="0" max="100" />
         </div>
       </div>
     </div>
@@ -51,6 +52,7 @@ export default {
       editing: false,
       cupTypes: ["small", "medium", "large", "mock"],
       coffeeName: ["Expresso", "Americano", "Cappuccino", "Latte"],
+      ingredients: ["coffee", "milk", "water", "bubble"],
       coffees: [
         {
           name: "Expresso",
