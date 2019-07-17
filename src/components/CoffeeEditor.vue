@@ -1,18 +1,20 @@
 <template>
   <div class="coffeeEditor">
+    <div class="title">
+      <h2>Let’s make a coffee</h2>
+    </div>
     <div class="topControll">
-      <div>
-        <label class="edit">
-          Custom Your Coffee
-          <input type="checkbox" v-model="editing" />
-        </label>
-      </div>
+      <div class="steps">Step1: Order Coffee</div>
       <div class="chooseFavorite">
-        <label>Choose Your Favorite:</label>
         <select v-model="favoriteType">
           <option v-for="(item, index) in coffees" :key="index" :value="item.name">{{item.name}}</option>
         </select>
       </div>
+      <div class="steps">Step2: Custom Ratio</div>
+      <label class="edit">
+        Start
+        <input type="checkbox" v-model="editing" />
+      </label>
     </div>
     <div
       class="coffeeType"
@@ -51,7 +53,6 @@ export default {
     return {
       editing: false,
       cupTypes: ["small", "medium", "large", "mock"],
-      coffeeName: ["Expresso", "Americano", "Cappuccino", "Latte"],
       ingredients: ["coffee", "milk", "water", "bubble"],
       coffees: [
         {
@@ -99,38 +100,52 @@ export default {
   height: $h;
 }
 .coffeeEditor {
+  background-color: #ffcb49;
+  color: #55340c;
   max-width: 500px;
 
+  .title {
+    padding: 10px 0;
+    text-align: center;
+
+    h2 {
+      font-size: 35px;
+      font-weight: 900;
+      line-height: 0.5;
+    }
+  }
+
   .topControll {
-    padding: 40px 0;
-    display: flex;
+    margin: 0 40px 40px;
+    padding: 0 30px 30px 30px;
+    border-radius: 10px;
+    border: 3px solid #8e661e;
+    background-color: #55340c;
+    color: white;
+    font-weight: 400;
+    .steps {
+      margin: 20px 0 10px 0;
+    }
 
     .chooseFavorite {
-      margin: 0 20px;
-
-      label {
-        display: block;
-        font-size: 14px;
-        color: rgba(white, 0.5);
-        margin-bottom: 5px;
-      }
       select {
-        width: 200px;
-        height: 35px;
+        width: 100%;
+        height: 40px;
         font-size: 14px;
+        border: 1px solid #f7d8bb;
+        outline: none;
       }
     }
     .edit {
-      color: #b2fffd;
-      border: 2px solid #b2fffd;
+      background-color: #fd8d02;
       border-radius: 5px;
       padding: 12px 20px;
-      margin: 8px 20px;
       display: block;
       transition: 0.5s;
       cursor: pointer;
+      text-align: center;
       &:hover {
-        background-color: rgba(white, 0.1);
+        background-color: #ffb85f;
       }
 
       input {
@@ -143,15 +158,11 @@ export default {
     display: flex;
     align-items: center;
     max-width: 500px;
-    border-radius: 5px;
-    padding: 10px 20px;
     cursor: pointer;
-    border-bottom: 1px solid rgba(white, 0.1);
     transition: 0.5s;
-
-    &:hover {
-      background-color: rgba(white, 0.05);
-    }
+    margin: 20px;
+    padding: 20px;
+    border-bottom: 1px solid rgba(#55340c, 0.5);
 
     &.showMode {
       label,
@@ -163,14 +174,14 @@ export default {
 
     &.favorite {
       &:before {
-        content: "BEST";
-        border: 5px solid;
-        color: #ff5e5e;
-        font-size: 30px;
+        content: "ORDER";
+        border: 4px solid;
+        color: #df2525;
+        font-size: 20px;
         line-height: 1.2;
         padding: 5px 3px;
         position: absolute;
-        transform: translateX(-70px) rotate(-20deg);
+        transform: translateX(-20px) translateY(-30px) rotate(-20deg);
       }
     }
     .num {
@@ -182,7 +193,7 @@ export default {
     .cupContainer {
       flex: 1;
       .cup {
-        border: 4px solid white;
+        border: 4px solid #55340c;
         @include size(70px, 50px);
         border-top: none;
         border-radius: 0 0 50px 50px;
@@ -208,7 +219,7 @@ export default {
         &:before {
           content: "";
           display: block;
-          border: 4px solid white;
+          border: 4px solid #55340c;
           border-left: none;
           border-radius: 0 50px 50px 0;
           @include size(15px, 20px);
@@ -232,13 +243,13 @@ export default {
             height: 10px;
           }
           .coffee {
-            background-color: #66491a;
+            background-color: #55340c;
           }
           .milk {
             background-color: #f7d8bb;
           }
           .water {
-            background-color: #589bce;
+            background-color: #7edbff;
           }
           .bubble {
             background-color: #eee;
@@ -249,16 +260,58 @@ export default {
     .control {
       flex: 2.5;
       select {
-        width: 100px;
-        height: 25px;
-        font-size: 14px;
+        width: 100%;
+        height: 40px;
+        font-size: 16px;
         margin-bottom: 10px;
+        border: 1px solid #eb9d53;
+        outline: none;
       }
       .controllBar {
         margin: 4px 0;
         width: 100%;
         input {
           width: 100%;
+        }
+        // Hide Everything
+        input[type="range"] {
+          -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+          width: 100%; /* Specific width is required for Firefox. */
+          background: transparent; /* Otherwise white in Chrome */
+        }
+        input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+        }
+        input[type="range"]:focus {
+          outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+        }
+        input[type="range"]::-ms-track {
+          width: 100%;
+          cursor: pointer;
+          /* Hides the slider so custom styles can be added */
+          background: transparent;
+          border-color: transparent;
+          color: transparent;
+        }
+        // styling thumb
+        /* Special styling for WebKit/Blink */
+        input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          border: 3px solid #55340c;
+          height: 18px;
+          width: 18px;
+          border-radius: 50%;
+          background: #ffffff;
+          cursor: pointer;
+          margin-top: -8px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+          box-shadow: 0 3px 10px rgba(#55340c, 0.3); /* Add cool effects to your sliders! */
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 2px;
+          cursor: pointer;
+          background: #55340c;
         }
       }
     }
